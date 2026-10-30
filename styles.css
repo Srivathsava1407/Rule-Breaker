@@ -8,6 +8,10 @@ h1 {
     text-align: center;
 }
 
+.objects[hidden] {
+    display: none;
+}
+
 .objects {
     display: flex;
     justify-content: center;

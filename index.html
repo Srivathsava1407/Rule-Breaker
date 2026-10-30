@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://pyscript.net/releases/2026.7.3/core.css" />
     <script type="module" src="https://pyscript.net/releases/2026.7.3/core.js"></script>
     <link rel="stylesheet" href="styles.css">
-    <script src="scripts.js" defer></script>
+    
 </head>
 <body>
     <h1>Rule Breaker</h1>
@@ -15,7 +15,10 @@
 
     <h2>Click the correct object</h2>
 
-    <div class = "objects">
+    <button id="start-button" type="button">Start</button>
+    <p id="game-rule">Press Start to begin</p>
+
+    <div class="objects" id="objects" hidden>
         <button type="button" class="object object-blue" data-color="blue" aria-label="Blue object"></button>
         <button type="button" class="object object-red" data-color="red" aria-label="Red object"></button>
         <button type="button" class="object object-yellow" data-color="yellow" aria-label="yellow object"></button>
@@ -23,5 +26,7 @@
     </div>
 
     <p id="game-message" role="status" aria-live="polite">Choose an object.</p>
+
+    <script type="py" src="main.py" config="./pyscript.json"></script>
 </body>
 </html>
