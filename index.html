@@ -6,7 +6,22 @@
     <title>Rule Breaker</title>
     <link rel="stylesheet" href="https://pyscript.net/releases/2026.7.3/core.css" />
     <script type="module" src="https://pyscript.net/releases/2026.7.3/core.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
 </head>
 <body>
+    <h1>Rule Breaker</h1>
+    <p>Welcome to Rule Breaker! This is a simple web application that allows you to break the rules of traditional programming.</p>
+
+    <h2>Click the correct object</h2>
+
+    <div class = "objects">
+        <button type="button" class="object object-blue" data-color="blue" aria-label="Blue object"></button>
+        <button type="button" class="object object-red" data-color="red" aria-label="Red object"></button>
+        <button type="button" class="object object-yellow" data-color="yellow" aria-label="yellow object"></button>
+        <button type="button" class="object object-green" data-color="green" aria-label="green object"></button>
+    </div>
+
+    <p id="game-message" role="status" aria-live="polite">Choose an object.</p>
 </body>
 </html>
