@@ -1,12 +1,29 @@
 import random
 
 from pyscript import web, when
-from rules import RULES
+import rules
 
 # establish the current rule as None at the start of the game
 current_rule = None
 
 hearts = 3
+
+# define event handler for difficulty selection click
+@when("click", ".content")
+def choose_difficulty(event):
+    global current_rule
+
+    selected_difficulty = event.target.getAttribute("id")
+
+    web.page["difficulty"].textContent = selected_difficulty
+
+    if selected_difficulty == "Easy":
+        current_rule = random.choice(rules.EASY_RULES)
+    elif selected_difficulty == "Medium":
+        current_rule = random.choice(rules.MEDIUM_RULES)
+    elif selected_difficulty == "Hard":
+        current_rule = random.choice(rules.HARD_RULES)
+
 
 # define the event handler for the start button click
 @when("click", "#start-button")
@@ -14,7 +31,6 @@ def start_game(event):
     global current_rule
     global hearts
 
-    current_rule = random.choice(RULES)
     #web.page["game-rule"].textContent = current_rule["prompt"]
     web.page["game-message"].textContent = "Choose an object."
     web.page["objects"].hidden = False
