@@ -58,6 +58,15 @@ h1 {
     text-align: center;
 }
 
+
+/* start-button section styling */
+#start-button {
+    padding: 10px 15px;
+    border: none;
+}
+
+
+/* lives section styling */
 .lives[hidden] {
     display: none;
 }
@@ -75,4 +84,35 @@ h1 {
     margin: auto 0.5rem;
     border: 1px solid white;
     border-radius: 25%;
+}
+
+
+/* difficulty section styling */
+.dropdown {
+    display: inline-block;
+}
+
+.dropdown button {
+    background-color: rgb(212, 212, 212);
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+}
+
+#difficulty {
+    background-color: rgb(177, 177, 177);
+}
+
+.dropdown .content {
+    flex-direction: column;
+    max-width: 100px;
+    display: none;
+}
+
+.dropdown:hover .content {
+    display: flex;
+}
+
+.content button:hover {
+    background-color: rgb(177, 177, 177);
 }
