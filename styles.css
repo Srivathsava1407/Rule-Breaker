@@ -116,3 +116,11 @@ h1 {
 .content button:hover {
     background-color: rgb(177, 177, 177);
 }
+
+.history[hidden] {
+    display: none;
+}
+
+.history {
+    display: block;
+}

@@ -16,7 +16,7 @@ correct_selected = 0
 # define event handler for difficulty selection click
 @when("click", ".content")
 def choose_difficulty(event):
-    global current_rule
+    global current_rule, selected_difficulty
 
     selected_difficulty = event.target.getAttribute("id")
 
@@ -45,12 +45,16 @@ def start_game(event):
     web.page["objects"].hidden = False
     web.page["lives"].hidden = False
     web.page["hearts"].textContent = hearts * "❤️"
+    web.page["history"].hidden = False
+    web.page["correct-history-objects"].innerHTML = ""
+    web.page["wrong-history-objects"].innerHTML = ""
 
 # define the event handler for the object selection click
 def choose_object(event):
     global current_rule
     global hearts
     global correct_selected
+    global selected_item
 
     if current_rule is None:
         return
@@ -61,22 +65,25 @@ def choose_object(event):
     if selected_item["selected"]:
         return
 
-    if matches_rule(selected_item, current_rule):
+    is_correct = matches_rule(selected_item, current_rule)
+    selected_item["selected"] = True
+
+    if is_correct:
         web.page["game-message"].textContent = "Correct!"
         correct_selected += 1
-        selected_item["selected"] = True
         event.target.disabled = True
         if correct_selected == matching_count:
             web.page["game-message"].textContent = "You Win!"
-            current_rule = None
+            current_rule = None   # game ends
     else:
         web.page["game-message"].textContent = "Not that one. Try again"
-        selected_item["selected"] = True
         event.target.disabled = True
         hearts -= 1
         web.page["hearts"].textContent = hearts * "❤️"
         if hearts == 0:
             web.page["game-message"].textContent = "You Lose!"
+
+    history_inventory(is_correct, event.target)
 
 # code to create random selection of objects according to current_rule
 COLORS = ["red", "green", "blue", "yellow"]
@@ -118,9 +125,21 @@ def show_objects(items):
             classes = ["object", f"shape-{item['shape']}"],
         )
         button.style["background-color"] = item["color"]
-        button.style["width"]  = "8rem" if item["size"] == "big" else "4rem"
+        button.style["width"] = "8rem" if item["size"] == "big" else "4rem"
         button.style["height"] = "8rem" if item["size"] == "big" else "4rem"
         button._dom_element.setAttribute("data-index", str(index))
 
         container.append(button)
         when("click", button)(choose_object)
+
+# function to display the past moves, showing the player which objects were accepted and which weren't in two different sections
+def history_inventory(is_correct, clicked_button):
+    destination_id = (
+        "correct-history-objects"
+        if is_correct
+        else "wrong-history-objects"
+    )
+    destination = web.page[destination_id]
+
+    clicked_button.disabled = True
+    destination._dom_element.appendChild(clicked_button)
