@@ -1,0 +1,126 @@
+body {
+    color:antiquewhite;
+    background-color: #333;
+}
+
+h1 {
+    color: #fff;
+    text-align: center;
+}
+
+.objects[hidden] {
+    display: none;
+}
+
+.objects {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 2rem auto;
+}
+
+.object {
+    width: 5rem;
+    aspect-ratio: 1;
+    border: 3px solid white;
+    border-radius: 30%;
+    cursor: pointer;
+}
+
+.object:focus-visible {
+    outline: 3px solid white;
+    outline-offset: 4px;
+}
+
+.object:disabled {
+    cursor: default;
+    opacity: 0.7;
+}
+
+.object-blue {
+    background-color: blue
+}
+
+.object-red {
+    background-color: red;
+}
+
+.object-green {
+    background-color: green;
+}
+
+.object-yellow {
+    background-color: yellow;
+}
+
+#game-message {
+    text-align: center;
+}
+
+
+/* start-button section styling */
+#start-button {
+    padding: 10px 15px;
+    border: none;
+}
+
+
+/* lives section styling */
+.lives[hidden] {
+    display: none;
+}
+
+.lives {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1 rem;
+}
+
+.heart {
+    width: 1rem;
+    aspect-ratio: 1;
+    background-color: red;
+    margin: auto 0.5rem;
+    border: 1px solid white;
+    border-radius: 25%;
+}
+
+
+/* difficulty section styling */
+.dropdown {
+    display: inline-block;
+}
+
+.dropdown button {
+    background-color: rgb(212, 212, 212);
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+}
+
+#difficulty {
+    background-color: rgb(177, 177, 177);
+}
+
+.dropdown .content {
+    flex-direction: column;
+    max-width: 100px;
+    display: none;
+}
+
+.dropdown:hover .content {
+    display: flex;
+}
+
+.content button:hover {
+    background-color: rgb(177, 177, 177);
+}
+
+.history[hidden] {
+    display: none;
+}
+
+.history {
+    display: block;
+}
