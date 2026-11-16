@@ -1,6 +1,32 @@
 body {
-    color:antiquewhite;
-    background-color: #333;
+    margin: 0;
+    background-color: #f2eeea;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.bg-pattern {
+    position: fixed;
+    top: -60px;
+    left: -60px;
+    width: calc(100vw + 120px);
+    height: calc(100vh + 120px);
+    z-index: -1;        /* Places it behind all game elements */
+    pointer-events: none;  /* Allows all clicks to pass right through */
+
+    background-image: radial-gradient(circle, rgba(255, 182, 193, 0.45) 8px, transparent 4.5px);
+    background-size: 40px 40px;
+
+    animation: candyFloat 10s ease-in-out infinite alternate;
+}
+
+@keyframes candyFloat {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    100% {
+        transform: translate(40px, 40px) rotate(1.5deg);
+    }
 }
 
 h1 {
