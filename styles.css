@@ -34,10 +34,39 @@ body {
     width: 8rem;
 }
 
-h1 {
-    color: #fff;
-    text-align: center;
+.btn-primary {
+    background-color: #ff8da1; /* Soft pink */
+    color: white;
+    font-family: inherit;
+    font-size: 1.25rem;
+    font-weight: bold;
+    padding: 14px 32px;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    box-shadow: 0 6px 0 #d8687c; /* 3D bottom edge */
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
+
+.btn-primary:hover {
+    transform: translateY(2px);
+    box-shadow: 0 4px 0 #d8687c;
+}
+
+.btn-primary:active {
+    transform: translateY(6px);
+    box-shadow: 0 0px 0 #d8687c; /* Flattened when pressed */
+}
+
+header {
+        text-align: center;
+}
+
+.my-heading {
+        color: rgba(255, 122, 142, 0.45);
+        font-family: 'Rancho', serif;
+        font-size: 48px;
+    }
 
 .objects[hidden] {
     display: none;
