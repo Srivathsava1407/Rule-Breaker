@@ -29,6 +29,11 @@ body {
     }
 }
 
+#hamster_sweet {
+    height: 8rem;
+    width: 8rem;
+}
+
 h1 {
     color: #fff;
     text-align: center;
