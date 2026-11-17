@@ -68,6 +68,19 @@ header {
         font-size: 48px;
     }
 
+#modal-credits {
+    border-radius: 10%;
+    background-color: #f2eeea;
+    border-color: rgba(255, 182, 193, 0.45);
+}
+
+.btn-secondary {
+    background-color: #ff8da1;
+    border-radius: 10%;
+    display: block;
+    margin: 0 auto;
+}
+
 .objects[hidden] {
     display: none;
 }
@@ -96,22 +109,6 @@ header {
 .object:disabled {
     cursor: default;
     opacity: 0.7;
-}
-
-.object-blue {
-    background-color: blue
-}
-
-.object-red {
-    background-color: red;
-}
-
-.object-green {
-    background-color: green;
-}
-
-.object-yellow {
-    background-color: yellow;
 }
 
 #game-message {

@@ -143,3 +143,11 @@ def history_inventory(is_correct, clicked_button):
 
     clicked_button.disabled = True
     destination._dom_element.appendChild(clicked_button)
+
+
+from js import document
+
+def open_credits_modal(event=None):
+    modal = document.getElementById("modal-credits")
+    if modal:
+        modal.showModal()
