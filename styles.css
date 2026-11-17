@@ -1,12 +1,72 @@
 body {
-    color:antiquewhite;
-    background-color: #333;
+    margin: 0;
+    background-color: #f2eeea;
+    overflow-x: hidden;
+    position: relative;
 }
 
-h1 {
-    color: #fff;
-    text-align: center;
+.bg-pattern {
+    position: fixed;
+    top: -60px;
+    left: -60px;
+    width: calc(100vw + 120px);
+    height: calc(100vh + 120px);
+    z-index: -1;        /* Places it behind all game elements */
+    pointer-events: none;  /* Allows all clicks to pass right through */
+
+    background-image: radial-gradient(circle, rgba(255, 182, 193, 0.45) 8px, transparent 4.5px);
+    background-size: 40px 40px;
+
+    animation: candyFloat 10s ease-in-out infinite alternate;
 }
+
+@keyframes candyFloat {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    100% {
+        transform: translate(40px, 40px) rotate(1.5deg);
+    }
+}
+
+#hamster_sweet {
+    height: 8rem;
+    width: 8rem;
+}
+
+.btn-primary {
+    background-color: #ff8da1; /* Soft pink */
+    color: white;
+    font-family: inherit;
+    font-size: 1.25rem;
+    font-weight: bold;
+    padding: 14px 32px;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    box-shadow: 0 6px 0 #d8687c; /* 3D bottom edge */
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(2px);
+    box-shadow: 0 4px 0 #d8687c;
+}
+
+.btn-primary:active {
+    transform: translateY(6px);
+    box-shadow: 0 0px 0 #d8687c; /* Flattened when pressed */
+}
+
+header {
+        text-align: center;
+}
+
+.my-heading {
+        color: rgba(255, 122, 142, 0.45);
+        font-family: 'Rancho', serif;
+        font-size: 48px;
+    }
 
 .objects[hidden] {
     display: none;
