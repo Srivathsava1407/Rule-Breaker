@@ -30,8 +30,8 @@ body {
 }
 
 #hamster_sweet {
-    height: 8rem;
-    width: 8rem;
+    height: 10rem;
+    width: 10rem;
 }
 
 .btn-primary {
@@ -67,6 +67,17 @@ header {
         font-family: 'Rancho', serif;
         font-size: 48px;
     }
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
 
 #modal-credits {
     border-radius: 10%;

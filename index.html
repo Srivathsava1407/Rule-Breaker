@@ -52,27 +52,32 @@
             <div id="wrong-history-objects"></div>
         </section>
 
+
+        <dialog id="modal-credits" class="chibi-modal">
+            <div class="modal-content">
+                <h2>References & Credits</h2>
+                <p>Game created with PyScript and Python.</p>
+                <ul>
+                    <li>Assets & Icons: []</li>
+                    <li>Inspirations: []</li>
+                </ul>
+                <!-- Native form method="dialog" automatically closes the modal on click! -->
+                <form method="dialog">
+                    <button class="btn-secondary">Close</button>
+                </form>
+            </div>
+        </dialog>
+
+
         <footer>
-            <!-- Hamster Image -->
-            <img src="hamster_images/hamster_sweet.webp" alt="A cheerful, round hamster with tan and cream fur, dark eyes, and a wide smile. It sits upright with tiny paws near its chest, facing forward in a friendly cartoon style. The background is plain black, creating a simple, playful scene. The overall emotional tone is warm, happy, and welcoming." id="hamster_sweet">
+            <section>
+                <!-- Hamster Image -->
+                <img src="hamster_images/hamster_sweet.webp" alt="A cheerful, round hamster with tan and cream fur, dark eyes, and a wide smile. It sits upright with tiny paws near its chest, facing forward in a friendly cartoon style. The background is plain black, creating a simple, playful scene. The overall emotional tone is warm, happy, and welcoming." id="hamster_sweet">
+            </section>
 
+            <section>
             <button id="btn-credits" class="btn-icon" py-click="open_credits_modal">ℹ️</button>
-
-
-            <dialog id="modal-credits" class="chibi-modal">
-                <div class="modal-content">
-                    <h2>References & Credits</h2>
-                    <p>Game created with PyScript and Python.</p>
-                    <ul>
-                        <li>Assets & Icons: []</li>
-                        <li>Inspirations: []</li>
-                    </ul>
-                    <!-- Native form method="dialog" automatically closes the modal on click! -->
-                    <form method="dialog">
-                        <button class="btn-secondary">Close</button>
-                    </form>
-                </div>
-            </dialog>
+            </section>
         </footer>
 
         <script type="py" src="main.py" config="./pyscript.json"></script>
