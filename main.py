@@ -90,8 +90,7 @@ COLORS = ["red", "green", "blue", "yellow"]
 SIZES = ["small", "big"]
 OBJECT_COUNT = 10
 SVG_SHAPES = {
-    "square": object_shapes/square.svg,
-    "hexagon": object_shapes/hexagon.svg
+    "square": '<rect x="7" y="7" width="86" height="86" rx="8"/>'
 }
 
 def matches_rule(item, rule):
@@ -123,14 +122,25 @@ def show_objects(items):
     container.innerHTML = ""
 
     for index, item in enumerate(items):
+        size = "8rem" if item["size"] == 'big' else "4rem"
+        shape_svg = SVG_SHAPES[item["shape"]]
+
         button = web.button(
-            str(item["number"]),
-            classes = ["object", f"shape-{item['shape']}"],
+            "",
+            classes = ["object"],
         )
-        button.style["background-color"] = item["color"]
-        button.style["width"] = "8rem" if item["size"] == "big" else "4rem"
-        button.style["height"] = "8rem" if item["size"] == "big" else "4rem"
+        button.style["color"] = item["color"]
+        button.style["width"] = size
+        button.style["height"] = size
         button._dom_element.setAttribute("data-index", str(index))
+
+        button.innerHTML = f"""
+            <svg viewBox="0 0 100 100" aria-hidden="true">
+                <g fill="currentColor">{shape_svg}</g>
+                <text x="50" y="56" text-anchor="middle"
+                    dominant-baseline="middle">{item["number"]}</text>
+            </svg>
+        """
 
         container.append(button)
         when("click", button)(choose_object)
