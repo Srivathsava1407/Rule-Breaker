@@ -88,7 +88,7 @@ def choose_object(event):
 # code to create random selection of objects according to current_rule
 COLORS = ["red", "green", "blue", "yellow"]
 SIZES = ["small", "big"]
-SHAPES = ["circle", "square", "traiangle", "star"]
+SHAPES = ["circle", "square", "triangle", "star"]
 OBJECT_COUNT = 10
 
 def matches_rule(item, rule):
