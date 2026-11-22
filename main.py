@@ -137,7 +137,7 @@ def show_objects(items):
         button._dom_element.setAttribute("data-index", str(index))
 
         button.innerHTML = f"""
-            <svg class="shape-svg" viewBox="0 0 100 100" aria-hidden="true">
+            <svg class="shape-svg" viewBox="0 0 576 576" aria-hidden="true">
                 <use href="{svg_path}#shape"></use>
             </svg>
             <span class="object-number" aria-hidden="true">{item["number"]}</span>
