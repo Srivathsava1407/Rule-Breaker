@@ -89,9 +89,7 @@ def choose_object(event):
 COLORS = ["red", "green", "blue", "yellow"]
 SIZES = ["small", "big"]
 OBJECT_COUNT = 10
-SVG_SHAPES = {
-    "square": '<rect x="7" y="7" width="86" height="86" rx="8"/>'
-}
+SVG_SHAPES = ["hexagon", "square"]
 
 def matches_rule(item, rule):
     return item[rule["attribute"]] == rule["value"]
@@ -122,12 +120,11 @@ def show_objects(items):
     container.innerHTML = ""
 
     for index, item in enumerate(items):
-        size = "8rem" if item["size"] == 'big' else "4rem"
-        shape_svg = SVG_SHAPES[item["shape"]]
+        size = "8rem" if item["size"] == "big" else "4rem"
 
         button = web.button(
             "",
-            classes = ["object"],
+            classes=["object"],
         )
         button.style["color"] = item["color"]
         button.style["width"] = size
@@ -135,10 +132,13 @@ def show_objects(items):
         button._dom_element.setAttribute("data-index", str(index))
 
         button.innerHTML = f"""
-            <svg viewBox="0 0 100 100" aria-hidden="true">
-                <g fill="currentColor">{shape_svg}</g>
-                <text x="50" y="56" text-anchor="middle"
-                    dominant-baseline="middle">{item["number"]}</text>
+            <svg class="shape-svg" viewBox="0 0 100 100" aria-hidden="true">
+                {SVG_SHAPES[item["shape"]]}
+                <text x="50" y="56"
+                    text-anchor="middle"
+                    dominant-baseline="middle">
+                    {item["number"]}
+                </text>
             </svg>
         """
 
