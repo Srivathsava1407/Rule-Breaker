@@ -88,8 +88,8 @@ def choose_object(event):
 # code to create random selection of objects according to current_rule
 COLORS = ["red", "green", "blue", "yellow"]
 SIZES = ["small", "big"]
-SHAPES = ["circle", "square", "traiangle", "star"]
 OBJECT_COUNT = 10
+SVG_SHAPES = ["hexagon", "square"]
 
 def matches_rule(item, rule):
     return item[rule["attribute"]] == rule["value"]
@@ -99,7 +99,7 @@ def generate_round(rule):
         {
             "color": random.choice(COLORS),
             "size": random.choice(SIZES),
-            "shape": random.choice(SHAPES),
+            "shape": random.choice(SVG_SHAPES),
             "number": random.randint(1, 9),
             "selected": False,
         }
@@ -115,19 +115,33 @@ def generate_round(rule):
     return items, matching_count
 
 # code function to display the randomly generated objects
+SHAPE_FILES = {
+    "hexagon": "object_shapes/hexagon.svg",
+    "square": "object_shapes/square.svg",
+}
+
+SHAPES = list(SHAPE_FILES)
+
 def show_objects(items):
     container = web.page["objects"]
     container.innerHTML = ""
 
     for index, item in enumerate(items):
-        button = web.button(
-            str(item["number"]),
-            classes = ["object", f"shape-{item['shape']}"],
-        )
-        button.style["background-color"] = item["color"]
-        button.style["width"] = "8rem" if item["size"] == "big" else "4rem"
-        button.style["height"] = "8rem" if item["size"] == "big" else "4rem"
+        size = "8rem" if item["size"] == "big" else "4rem"
+        svg_path = SHAPE_FILES[item["shape"]]
+
+        button = web.button("", classes=["object"])
+        button.style["width"] = size
+        button.style["height"] = size
+        button.style["color"] = item["color"]
         button._dom_element.setAttribute("data-index", str(index))
+
+        button.innerHTML = f"""
+            <svg class="shape-svg" viewBox="0 0 576 576" aria-hidden="true">
+                <use href="{svg_path}#shape"></use>
+            </svg>
+            <span class="object-number" aria-hidden="true">{item["number"]}</span>
+        """
 
         container.append(button)
         when("click", button)(choose_object)
@@ -143,3 +157,11 @@ def history_inventory(is_correct, clicked_button):
 
     clicked_button.disabled = True
     destination._dom_element.appendChild(clicked_button)
+
+
+from js import document
+
+def open_credits_modal(event=None):
+    modal = document.getElementById("modal-credits")
+    if modal:
+        modal.showModal()
