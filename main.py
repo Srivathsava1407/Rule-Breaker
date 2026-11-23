@@ -33,9 +33,7 @@ def choose_difficulty(event):
 # define the event handler for the start button click
 @when("click", "#start-button")
 def start_game(event):
-    global current_rule
-    global hearts
-    global round_objects, matching_count, correct_selected
+    global round_objects, matching_count, correct_selected, hearts, current_rule
 
     round_objects, matching_count = generate_round(current_rule)
     correct_selected = 0
