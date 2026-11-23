@@ -51,16 +51,18 @@ def start_game(event):
 
 # define the event handler for the object selection click
 def choose_object(event):
-    global current_rule
-    global hearts
-    global correct_selected
-    global selected_item
+    global current_rule, hearts, correct_selected, selected_item
 
     if current_rule is None:
         return
 
-    index = int(event.target.getAttribute("data-index"))
-    selected_item = round_objects[index]  # obtaining what the user has selected
+    # Finds the button even if an SVG or span inside was clicked:
+    button = event.target.closest("button")
+    if not button:
+        return
+
+    index = int(button.getAttribute("data-index"))
+    selected_item = round_objects[index]
 
     if selected_item["selected"]:
         return
@@ -71,19 +73,19 @@ def choose_object(event):
     if is_correct:
         web.page["game-message"].textContent = "Correct!"
         correct_selected += 1
-        event.target.disabled = True
+        button.disabled = True
         if correct_selected == matching_count:
             web.page["game-message"].textContent = "You Win!"
-            current_rule = None   # game ends
+            current_rule = None
     else:
         web.page["game-message"].textContent = "Not that one. Try again"
-        event.target.disabled = True
+        button.disabled = True
         hearts -= 1
         web.page["hearts"].textContent = hearts * "❤️"
         if hearts == 0:
             web.page["game-message"].textContent = "You Lose!"
 
-    history_inventory(is_correct, event.target)
+    history_inventory(is_correct, button)
 
 # code to create random selection of objects according to current_rule
 COLORS = ["red", "green", "blue", "yellow"]
