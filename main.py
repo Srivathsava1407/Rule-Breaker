@@ -11,14 +11,17 @@ hearts = 5
 round_objects = []
 matching_count = 0
 correct_selected = 0
+selected_difficulty = None
+round_active = False
 
 
 # define event handler for difficulty selection click
 @when("click", ".content")
 def choose_difficulty(event):
-    global current_rule, selected_difficulty
+    global current_rule, selected_difficulty, round_active
 
     selected_difficulty = event.target.getAttribute("id")
+    round_active = False
 
     web.page["difficulty"].textContent = selected_difficulty
 
@@ -29,11 +32,12 @@ def choose_difficulty(event):
     elif selected_difficulty == "Hard":
         current_rule = random.choice(rules.HARD_RULES)
 
+    show_history()
 
 # define the event handler for the start button click
 @when("click", "#start-button")
 def start_game(event):
-    global round_objects, matching_count, correct_selected, hearts, current_rule
+    global round_objects, matching_count, correct_selected, hearts, current_rule, round_active
 
     round_objects, matching_count = generate_round(current_rule)
     correct_selected = 0
@@ -43,9 +47,11 @@ def start_game(event):
     web.page["objects"].hidden = False
     web.page["lives"].hidden = False
     web.page["hearts"].textContent = hearts * "❤️"
-    web.page["history"].hidden = False
     web.page["correct-history-objects"].innerHTML = ""
     web.page["wrong-history-objects"].innerHTML = ""
+
+    round_active = True
+    show_history()
 
 # define the event handler for the object selection click
 def choose_object(event):
@@ -158,6 +164,24 @@ def history_inventory(is_correct, clicked_button):
     clicked_button.disabled = True
     destination._dom_element.appendChild(clicked_button)
 
+# function to check the display condition for the history section
+def show_history():
+    is_hard = selected_difficulty == "Hard"
+    toggle = web.page["show-history-toggle"]
+    checkbox = web.page["check"]
+
+    toggle.hidden = is_hard
+
+    if is_hard:
+        checkbox.checked = False
+
+    web.page["history"].hidden = (
+        is_hard or not round_active or not checkbox.checked
+    )
+
+@when("change", "#check")
+def history_toggle_changed(event):
+    show_history()
 
 from js import document
 
