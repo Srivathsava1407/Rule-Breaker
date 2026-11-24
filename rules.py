@@ -12,9 +12,18 @@ RULES = [
 random_color = random.choice(COLORS)
 
 EASY_RULES = [
-    {"prompt": f"Choose the {random_color} objects", "attribute": "color", "value": random_color},
-    {"prompt": "Choose the small objects", "attribute": "size", "value": "small"},
-    {"prompt": "Choose the big objects", "attribute": "size", "value": "big"}
+    {
+        "prompt": f"Choose the {random_color} objects",
+        "conditions": [{"attribute": "color", "value": random_color}],
+    },
+    {
+        "prompt": "Choose the small objects",
+        "conditions": [{"attribute": "size", "value": "small"}],
+    },
+    {
+        "prompt": "Choose the big objects",
+        "conditions": [{"attribute": "size", "value": "big"}],
+    }
 ]
 
 MEDIUM_RULES = [
