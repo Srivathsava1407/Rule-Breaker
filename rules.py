@@ -1,3 +1,7 @@
+import random
+
+COLORS = ["#FF746C", "#9FDDD0", "#B5DAED", "#FFDC82", "#A290B7"]
+
 RULES = [
     {"prompt": "Choose the red object", "correct_color": "red"},
     {"prompt": "Choose the blue object", "correct_color": "blue"},
@@ -5,19 +9,21 @@ RULES = [
     {"prompt": "Choose the yellow object", "correct_color": "yellow"}
 ]
 
+random_color = random.choice(COLORS)
+
 EASY_RULES = [
-    {"prompt": "Choose the red objects", "attribute": "color", "value": "#FF746C"},
-    {"prompt": "Choose the green objects", "attribute": "color", "value": "#9FDDD0"},
-    {"prompt": "Choose the blue objects", "attribute": "color", "value": "#B5DAED"},
-    {"prompt": "Choose the yellow objects", "attribute": "color", "value": "#FFDC82"},
-    {"prompt": "Choose the purple objects", "attribute": "color", "value": "#A290B7"},
+    {"prompt": f"Choose the {random_color} objects", "attribute": "color", "value": random_color},
     {"prompt": "Choose the small objects", "attribute": "size", "value": "small"},
     {"prompt": "Choose the big objects", "attribute": "size", "value": "big"}
 ]
 
 MEDIUM_RULES = [
-    {"prompt": "Choose the small objects", "attribute": "size", "value": "small"},
-    {"prompt": "Choose the big objects", "attribute": "size", "value": "big"}
+    {
+        "prompt": f"Choose the small {random_color} objects",
+        "conditions": [
+            {"attribute": "size", ""}
+        ]
+    }
 ]
 
 HARD_RULES = [
