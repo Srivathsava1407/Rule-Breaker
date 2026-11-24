@@ -133,6 +133,51 @@ footer {
     border: none;
 }
 
+/* history-button section styeling */
+#round-settings {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.show-history-toggle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.history-toggle-button {
+    background-color: bisque;
+    width: 50px;
+    height: 25px;
+    border-radius: 200px;
+    cursor: pointer;
+    position: relative;
+    transition: 0.2s;
+}
+
+.history-toggle-button::before {
+    position: absolute;
+    content: '';
+    background-color: #b24431;
+    width: 22px;
+    height: 22px;
+    border-radius: 200px;
+    margin: 1.5px;
+    transition: 0.2s;
+}
+
+input {
+    display: none;
+}
+
+input:checked + .history-toggle-button {
+    background-color: #d8687c;
+}
+
+input:checked + .history-toggle-button::before {
+    transform: translateX(25px);
+}
 
 /* lives section styling */
 .lives[hidden] {
