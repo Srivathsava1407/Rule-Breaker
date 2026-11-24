@@ -9,11 +9,14 @@ EASY_RULES = [
     {"prompt": "Choose the red objects", "attribute": "color", "value": "#FF746C"},
     {"prompt": "Choose the green objects", "attribute": "color", "value": "#9FDDD0"},
     {"prompt": "Choose the blue objects", "attribute": "color", "value": "#B5DAED"},
-    {"prompt": "Choose the yellow objects", "attribute": "color", "value": "#FFDC82"}
+    {"prompt": "Choose the yellow objects", "attribute": "color", "value": "#FFDC82"},
+    {"prompt": "Choose the small objects", "attribute": "size", "value": "small"},
+    {"prompt": "Choose the big objects", "attribute": "size", "value": "big"}
 ]
 
 MEDIUM_RULES = [
     {"prompt": "Choose the small objects", "attribute": "size", "value": "small"},
+    {"prompt": "Choose the big objects", "attribute": "size", "value": "big"}
 ]
 
 HARD_RULES = [
