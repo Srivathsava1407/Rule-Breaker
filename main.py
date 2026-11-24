@@ -95,7 +95,7 @@ def choose_object(event):
 COLORS = ["#FF746C", "#9FDDD0", "#B5DAED", "#FFDC82"]
 SIZES = ["small", "big"]
 OBJECT_COUNT = 10
-SVG_SHAPES = ["hexagon", "square", "triangle"]
+SVG_SHAPES = ["hexagon", "square", "triangle", "circle"]
 
 def matches_rule(item, rule):
     return item[rule["attribute"]] == rule["value"]
@@ -124,7 +124,8 @@ def generate_round(rule):
 SHAPE_FILES = {
     "hexagon": "object_shapes/hexagon.svg",
     "square": "object_shapes/square.svg",
-    "triangle": "object_shapes/triangle.svg"
+    "triangle": "object_shapes/triangle.svg",
+    "circle": "object_shapes/circle.svg"
 }
 
 SHAPES = list(SHAPE_FILES)
