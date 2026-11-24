@@ -35,5 +35,18 @@ MEDIUM_RULES = [
 ]
 
 HARD_RULES = [
-    {"prompt": "Choose objects showing the number 7", "attribute": "number", "value": 7},
+    {
+        "prompt": "Choose the big objects with even numbers",
+        "conditions": [
+            {"attribute": "size", "value": "big"},
+            {"attribute": "number", "operator": "even"}
+        ]
+    },
+    {
+        "prompt": "Choose the small objects with even numbers",
+        "conditions": [
+            {"attribute": "size", "value": "small"},
+            {"attribute": "number", "operator": "even"}
+        ]
+    }
 ]
