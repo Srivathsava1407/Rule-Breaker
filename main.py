@@ -94,29 +94,79 @@ def choose_object(event):
 # code to create random selection of objects according to current_rule
 COLORS = ["#FF746C", "#9FDDD0", "#B5DAED", "#FFDC82", "#A290B7"]
 SIZES = ["small", "big"]
-OBJECT_COUNT = 10
+OBJECT_COUNT = 15
 SVG_SHAPES = ["hexagon", "square", "triangle", "circle"]
 
 def matches_rule(item, rule):
-    return item[rule["attribute"]] == rule["value"]
+    for condition in rule["conditions"]:
+        value = item[condition["attribute"]]
+
+        if condition.get("operator", "equals") == "even":
+            if value % 2 != 0:
+                return False
+        elif value != condition["value"]:
+            return False
+
+    return True
 
 def generate_round(rule):
+    conditions = rule["conditions"]
+    if not conditions:
+        raise ValueError("A rule must have at least one condition.")
+
     items = [
         {
             "color": random.choice(COLORS),
             "size": random.choice(SIZES),
             "shape": random.choice(SVG_SHAPES),
-            "number": random.randint(1, 9),
+            "number": random.randint(1, 100),
             "selected": False,
         }
-        for i in range(OBJECT_COUNT)
+        for _ in range(OBJECT_COUNT)
     ]
 
-    matching_count = random.randint(2, OBJECT_COUNT-2)
-    matching_indexes = random.sample(range(OBJECT_COUNT), matching_count)
+    matching_count = random.randint(2, OBJECT_COUNT - 5)
+    matching_indexes = set(random.sample(range(OBJECT_COUNT), matching_count))
 
+    # Make the matching objects satisfy all conditions.
     for index in matching_indexes:
-        items[index][rule["attribute"]] = rule["value"]
+        item = items[index]
+        for condition in conditions:
+            attribute = condition["attribute"]
+
+            if condition.get("operator", "equals") == "even":
+                item[attribute] = random.choice(range(2, 101, 2))
+            else:
+                item[attribute] = condition["value"]
+
+    # Make every other object fail the first condition.
+    condition = conditions[0]
+    attribute = condition["attribute"]
+
+    if condition.get("operator", "equals") == "even":
+        failing_values = list(range(1, 101, 2))
+    else:
+        possible_values = {
+            "color": COLORS,
+            "size": SIZES,
+            "shape": SVG_SHAPES,
+            "number": range(1, 101),
+        }.get(attribute)
+
+        if possible_values is None:
+            raise ValueError(f"Unsupported rule attribute: {attribute}")
+
+        failing_values = [
+            value for value in possible_values
+            if value != condition["value"]
+        ]
+
+    if not failing_values:
+        raise ValueError(f"Cannot create a non-matching object for {attribute}.")
+
+    for index, item in enumerate(items):
+        if index not in matching_indexes:
+            item[attribute] = random.choice(failing_values)
 
     return items, matching_count
 
