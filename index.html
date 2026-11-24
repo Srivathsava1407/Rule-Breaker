@@ -20,19 +20,30 @@
             <p>Welcome to Rule Breaker! This is a simple web application that allows you to break the rules of traditional programming.</p>
         </header>
 
-        <!-- The difficulty selection button -->
-        <section class="dropdown">
-            <button id="difficulty">Difficulty</button>
-            <div class="content">
-                <button id="Easy">Easy</button>
-                <button id="Medium">Medium</button>
-                <button id="Hard">Hard</button>
+        <section id="round-settings">
+            <!-- The difficulty selection button -->
+            <section class="dropdown">
+                <button id="difficulty">Difficulty</button>
+                <div class="content">
+                    <button id="Easy">Easy</button>
+                    <button id="Medium">Medium</button>
+                    <button id="Hard">Hard</button>
+                </div>
+            </section>
+
+            <!-- The start button -->
+            <div>
+                <button id="start-button" class="btn-primary" type="button">Start</button>
+                <p id="game-rule">Press Start to begin</p>
+            </div>
+
+            <!-- The history option button -->
+            <div class="show-history-toggle">
+                <p>show history</p>
+                <input type="checkbox" id="check">
+                <label for="check" class="history-toggle-button"></label>
             </div>
         </section>
-
-        <!-- The start button -->
-        <button id="start-button" class="btn-primary" type="button">Start</button>
-        <p id="game-rule">Press Start to begin</p>
 
         <!--section for projecting objects 
             The objects should possess variable color, size, shape and number-->
@@ -48,8 +59,12 @@
         <!-- section for diplaying last played objects -->
         <section class="history" id="history" hidden>
             <p>History</p>
-            <div id="correct-history-objects"></div>
-            <div id="wrong-history-objects"></div>
+            <div id="correct-history-objects">
+                
+            </div>
+            <div id="wrong-history-objects">
+                
+            </div>
         </section>
 
 
