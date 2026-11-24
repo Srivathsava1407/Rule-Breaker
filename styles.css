@@ -146,6 +146,10 @@ footer {
     align-items: center;
 }
 
+.show-history-toggle[hidden] {
+    display: none;
+}
+
 .history-toggle-button {
     background-color: bisque;
     width: 50px;
