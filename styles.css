@@ -191,6 +191,13 @@ footer {
 
 .history {
     display: block;
+    max-width: 60%;
+    margin: 0 auto;
+}
+
+#correct-history-objects , #wrong-history-objects{
+    display: flex;
+    flex-direction: row;
 }
 
 .object svg {
