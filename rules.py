@@ -6,7 +6,10 @@ RULES = [
 ]
 
 EASY_RULES = [
-    {"prompt": "Choose the red objects", "attribute": "color", "value": "red"},
+    {"prompt": "Choose the red objects", "attribute": "color", "value": "#FF746C"},
+    {"prompt": "Choose the green objects", "attribute": "color", "value": "#9FDDD0"},
+    {"prompt": "Choose the blue objects", "attribute": "color", "value": "#B5DAED"},
+    {"prompt": "Choose the yellow objects", "attribute": "color", "value": "#FFDC82"}
 ]
 
 MEDIUM_RULES = [
