@@ -21,7 +21,15 @@ MEDIUM_RULES = [
     {
         "prompt": f"Choose the small {random_color} objects",
         "conditions": [
-            {"attribute": "size", ""}
+            {"attribute": "size", "value": "small"},
+            {"attribule": "color", "value": random_color}
+        ]
+    },
+    {
+        "prompt": f"Choose the big {random_color} objects",
+        "conditions": [
+            {"attribute": "size", "value": "big"},
+            {"attribule": "color", "value": random_color}
         ]
     }
 ]
