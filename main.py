@@ -92,7 +92,7 @@ def choose_object(event):
     history_inventory(is_correct, button)
 
 # code to create random selection of objects according to current_rule
-COLORS = ["#FF746C", "#9FDDD0", "#B5DAED", "#FFDC82"]
+COLORS = ["#FF746C", "#9FDDD0", "#B5DAED", "#FFDC82", "#A290B7"]
 SIZES = ["small", "big"]
 OBJECT_COUNT = 10
 SVG_SHAPES = ["hexagon", "square", "triangle", "circle"]

@@ -10,6 +10,7 @@ EASY_RULES = [
     {"prompt": "Choose the green objects", "attribute": "color", "value": "#9FDDD0"},
     {"prompt": "Choose the blue objects", "attribute": "color", "value": "#B5DAED"},
     {"prompt": "Choose the yellow objects", "attribute": "color", "value": "#FFDC82"},
+    {"prompt": "Choose the purple objects", "attribute": "color", "value": "#A290B7"},
     {"prompt": "Choose the small objects", "attribute": "size", "value": "small"},
     {"prompt": "Choose the big objects", "attribute": "size", "value": "big"}
 ]
