@@ -1,3 +1,7 @@
+import random
+
+COLORS = ["#FF746C", "#9FDDD0", "#B5DAED", "#FFDC82", "#A290B7"]
+
 RULES = [
     {"prompt": "Choose the red object", "correct_color": "red"},
     {"prompt": "Choose the blue object", "correct_color": "blue"},
@@ -5,14 +9,53 @@ RULES = [
     {"prompt": "Choose the yellow object", "correct_color": "yellow"}
 ]
 
+random_color = random.choice(COLORS)
+
 EASY_RULES = [
-    {"prompt": "Choose the red objects", "attribute": "color", "value": "red"},
+    {
+        "prompt": f"Choose the {random_color} objects",
+        "conditions": [{"attribute": "color", "value": random_color}],
+    },
+    {
+        "prompt": "Choose the small objects",
+        "conditions": [{"attribute": "size", "value": "small"}],
+    },
+    {
+        "prompt": "Choose the big objects",
+        "conditions": [{"attribute": "size", "value": "big"}],
+    }
 ]
 
 MEDIUM_RULES = [
-    {"prompt": "Choose the small objects", "attribute": "size", "value": "small"},
+    {
+        "prompt": f"Choose the small {random_color} objects",
+        "conditions": [
+            {"attribute": "size", "value": "small"},
+            {"attribute": "color", "value": random_color}
+        ]
+    },
+    {
+        "prompt": f"Choose the big {random_color} objects",
+        "conditions": [
+            {"attribute": "size", "value": "big"},
+            {"attribute": "color", "value": random_color}
+        ]
+    }
 ]
 
 HARD_RULES = [
-    {"prompt": "Choose objects showing the number 7", "attribute": "number", "value": 7},
+    {
+        "prompt": "Choose the big objects with even numbers",
+        "conditions": [
+            {"attribute": "size", "value": "big"},
+            {"attribute": "number", "operator": "even"}
+        ]
+    },
+    {
+        "prompt": "Choose the small objects with even numbers",
+        "conditions": [
+            {"attribute": "size", "value": "small"},
+            {"attribute": "number", "operator": "even"}
+        ]
+    }
 ]

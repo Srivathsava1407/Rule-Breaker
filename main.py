@@ -11,14 +11,17 @@ hearts = 5
 round_objects = []
 matching_count = 0
 correct_selected = 0
+selected_difficulty = None
+round_active = False
 
 
 # define event handler for difficulty selection click
 @when("click", ".content")
 def choose_difficulty(event):
-    global current_rule, selected_difficulty
+    global current_rule, selected_difficulty, round_active
 
     selected_difficulty = event.target.getAttribute("id")
+    round_active = False
 
     web.page["difficulty"].textContent = selected_difficulty
 
@@ -29,11 +32,12 @@ def choose_difficulty(event):
     elif selected_difficulty == "Hard":
         current_rule = random.choice(rules.HARD_RULES)
 
+    show_history()
 
 # define the event handler for the start button click
 @when("click", "#start-button")
 def start_game(event):
-    global round_objects, matching_count, correct_selected, hearts, current_rule
+    global round_objects, matching_count, correct_selected, hearts, current_rule, round_active
 
     round_objects, matching_count = generate_round(current_rule)
     correct_selected = 0
@@ -43,9 +47,11 @@ def start_game(event):
     web.page["objects"].hidden = False
     web.page["lives"].hidden = False
     web.page["hearts"].textContent = hearts * "❤️"
-    web.page["history"].hidden = False
     web.page["correct-history-objects"].innerHTML = ""
     web.page["wrong-history-objects"].innerHTML = ""
+
+    round_active = True
+    show_history()
 
 # define the event handler for the object selection click
 def choose_object(event):
@@ -86,31 +92,81 @@ def choose_object(event):
     history_inventory(is_correct, button)
 
 # code to create random selection of objects according to current_rule
-COLORS = ["#FF746C", "#9FDDD0", "#B5DAED", "#FFDC82"]
+COLORS = ["#FF746C", "#9FDDD0", "#B5DAED", "#FFDC82", "#A290B7"]
 SIZES = ["small", "big"]
-OBJECT_COUNT = 10
-SVG_SHAPES = ["hexagon", "square"]
+OBJECT_COUNT = 15
+SVG_SHAPES = ["hexagon", "square", "triangle", "circle"]
 
 def matches_rule(item, rule):
-    return item[rule["attribute"]] == rule["value"]
+    for condition in rule["conditions"]:
+        value = item[condition["attribute"]]
+
+        if condition.get("operator", "equals") == "even":
+            if value % 2 != 0:
+                return False
+        elif value != condition["value"]:
+            return False
+
+    return True
 
 def generate_round(rule):
+    conditions = rule["conditions"]
+    if not conditions:
+        raise ValueError("A rule must have at least one condition.")
+
     items = [
         {
             "color": random.choice(COLORS),
             "size": random.choice(SIZES),
             "shape": random.choice(SVG_SHAPES),
-            "number": random.randint(1, 9),
+            "number": random.randint(1, 100),
             "selected": False,
         }
-        for i in range(OBJECT_COUNT)
+        for _ in range(OBJECT_COUNT)
     ]
 
-    matching_count = random.randint(2, OBJECT_COUNT-2)
-    matching_indexes = random.sample(range(OBJECT_COUNT), matching_count)
+    matching_count = random.randint(2, OBJECT_COUNT - 5)
+    matching_indexes = set(random.sample(range(OBJECT_COUNT), matching_count))
 
+    # Make the matching objects satisfy all conditions.
     for index in matching_indexes:
-        items[index][rule["attribute"]] = rule["value"]
+        item = items[index]
+        for condition in conditions:
+            attribute = condition["attribute"]
+
+            if condition.get("operator", "equals") == "even":
+                item[attribute] = random.choice(range(2, 101, 2))
+            else:
+                item[attribute] = condition["value"]
+
+    # Make every other object fail the first condition.
+    condition = conditions[0]
+    attribute = condition["attribute"]
+
+    if condition.get("operator", "equals") == "even":
+        failing_values = list(range(1, 101, 2))
+    else:
+        possible_values = {
+            "color": COLORS,
+            "size": SIZES,
+            "shape": SVG_SHAPES,
+            "number": range(1, 101),
+        }.get(attribute)
+
+        if possible_values is None:
+            raise ValueError(f"Unsupported rule attribute: {attribute}")
+
+        failing_values = [
+            value for value in possible_values
+            if value != condition["value"]
+        ]
+
+    if not failing_values:
+        raise ValueError(f"Cannot create a non-matching object for {attribute}.")
+
+    for index, item in enumerate(items):
+        if index not in matching_indexes:
+            item[attribute] = random.choice(failing_values)
 
     return items, matching_count
 
@@ -118,6 +174,8 @@ def generate_round(rule):
 SHAPE_FILES = {
     "hexagon": "object_shapes/hexagon.svg",
     "square": "object_shapes/square.svg",
+    "triangle": "object_shapes/triangle.svg",
+    "circle": "object_shapes/circle.svg"
 }
 
 SHAPES = list(SHAPE_FILES)
@@ -158,6 +216,24 @@ def history_inventory(is_correct, clicked_button):
     clicked_button.disabled = True
     destination._dom_element.appendChild(clicked_button)
 
+# function to check the display condition for the history section
+def show_history():
+    is_hard = selected_difficulty == "Hard"
+    toggle = web.page["show-history-toggle"]
+    checkbox = web.page["check"]
+
+    toggle.hidden = is_hard
+
+    if is_hard:
+        checkbox.checked = False
+
+    web.page["history"].hidden = (
+        is_hard or not round_active or not checkbox.checked
+    )
+
+@when("change", "#check")
+def history_toggle_changed(event):
+    show_history()
 
 from js import document
 

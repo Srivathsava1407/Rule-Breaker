@@ -30,8 +30,8 @@ body {
 }
 
 #hamster_sweet {
-    height: 10rem;
-    width: 10rem;
+    height: 15rem;
+    width: 15rem;
 }
 
 .btn-primary {
@@ -144,6 +144,10 @@ footer {
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.show-history-toggle[hidden] {
+    display: none;
 }
 
 .history-toggle-button {
