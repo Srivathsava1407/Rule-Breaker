@@ -185,7 +185,7 @@ def show_objects(items):
     container.innerHTML = ""
 
     for index, item in enumerate(items):
-        size = "8rem" if item["size"] == "big" else "4rem"
+        size = "6rem" if item["size"] == "big" else "4rem"
         svg_path = SHAPE_FILES[item["shape"]]
 
         button = web.button("", classes=["object"])
