@@ -81,6 +81,7 @@ def choose_object(event):
         web.page["game-message"].textContent = "Correct!"
         correct_selected += 1
         button.disabled = True
+        set_hamster("sweet", "A sweet hamster idle")
         if correct_selected == matching_count:
             web.page["game-message"].textContent = "You Win!"
             current_rule = None
