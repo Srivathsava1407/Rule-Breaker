@@ -93,7 +93,7 @@ def choose_object(event):
         if hearts == 0:
             game_over = True
             set_hamster("evil", "An evil hamster image jumps onto you")
-            web.page["hamster_image"]._dom_element.classList.add("hamster-attack")
+            web.page["hamster_image"]._dom_element.classList.add("hamster_attack")
             web.page["game-message"].textContent = "You Lose!"
 
     history_inventory(is_correct, button)
