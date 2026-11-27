@@ -38,12 +38,14 @@ def choose_difficulty(event):
 # define the event handler for the start button click
 @when("click", "#start-button")
 def start_game(event):
-    global round_objects, matching_count, correct_selected, hearts, current_rule, round_active
+    global round_objects, matching_count, correct_selected, hearts, current_rule, round_active, game_over
 
+    hearts = 5
+    game_over = False
+    set_hamster("sweet", "A cheerful hamster idle")
     round_objects, matching_count = generate_round(current_rule)
     correct_selected = 0
     show_objects(round_objects)
-    #web.page["game-rule"].textContent = current_rule["prompt"]
     web.page["game-message"].textContent = "Choose an object."
     web.page["objects"].hidden = False
     web.page["lives"].hidden = False
@@ -56,9 +58,9 @@ def start_game(event):
 
 # define the event handler for the object selection click
 def choose_object(event):
-    global current_rule, hearts, correct_selected, selected_item
+    global current_rule, hearts, correct_selected, selected_item, game_over
 
-    if current_rule is None:
+    if current_rule is None or game_over:
         return
 
     # Finds the button even if an SVG or span inside was clicked:
