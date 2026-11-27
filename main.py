@@ -13,6 +13,7 @@ matching_count = 0
 correct_selected = 0
 selected_difficulty = None
 round_active = False
+game_over = False
 
 
 # define event handler for difficulty selection click
@@ -241,3 +242,12 @@ def open_credits_modal(event=None):
     modal = document.getElementById("modal-credits")
     if modal:
         modal.showModal()
+
+# function to define the hamster expression 
+def set_hamster(expression, alt_text):
+    image = web.page["hamster_image"]._dom_element
+    image.setAttribute(
+        "src",
+        f"hamster_images/hamster_{expression}.webp"
+    )
+    image.setAttribute("all", alt_text)
