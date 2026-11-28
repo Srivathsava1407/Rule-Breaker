@@ -13,6 +13,7 @@ matching_count = 0
 correct_selected = 0
 selected_difficulty = None
 round_active = False
+game_over = False
 
 
 # define event handler for difficulty selection click
@@ -37,12 +38,14 @@ def choose_difficulty(event):
 # define the event handler for the start button click
 @when("click", "#start-button")
 def start_game(event):
-    global round_objects, matching_count, correct_selected, hearts, current_rule, round_active
+    global round_objects, matching_count, correct_selected, hearts, current_rule, round_active, game_over
 
+    hearts = 5
+    game_over = False
+    set_hamster("sweet", "A cheerful hamster idle")
     round_objects, matching_count = generate_round(current_rule)
     correct_selected = 0
     show_objects(round_objects)
-    #web.page["game-rule"].textContent = current_rule["prompt"]
     web.page["game-message"].textContent = "Choose an object."
     web.page["objects"].hidden = False
     web.page["lives"].hidden = False
@@ -55,9 +58,9 @@ def start_game(event):
 
 # define the event handler for the object selection click
 def choose_object(event):
-    global current_rule, hearts, correct_selected, selected_item
+    global current_rule, hearts, correct_selected, selected_item, game_over
 
-    if current_rule is None:
+    if current_rule is None or game_over:
         return
 
     # Finds the button even if an SVG or span inside was clicked:
@@ -78,6 +81,7 @@ def choose_object(event):
         web.page["game-message"].textContent = "Correct!"
         correct_selected += 1
         button.disabled = True
+        set_hamster("sweet", "A sweet hamster idle")
         if correct_selected == matching_count:
             web.page["game-message"].textContent = "You Win!"
             current_rule = None
@@ -85,8 +89,12 @@ def choose_object(event):
         web.page["game-message"].textContent = "Not that one. Try again"
         button.disabled = True
         hearts -= 1
+        set_hamster("worried", "A worried hamster image")
         web.page["hearts"].textContent = hearts * "❤️"
         if hearts == 0:
+            game_over = True
+            set_hamster("crazy", "A crazy hamster image jumps onto you")
+            web.page["hamster_image"]._dom_element.classList.add("hamster_attack")
             web.page["game-message"].textContent = "You Lose!"
 
     history_inventory(is_correct, button)
@@ -241,3 +249,12 @@ def open_credits_modal(event=None):
     modal = document.getElementById("modal-credits")
     if modal:
         modal.showModal()
+
+# function to define the hamster expression 
+def set_hamster(expression, alt_text):
+    image = web.page["hamster_image"]._dom_element
+    image.setAttribute(
+        "src",
+        f"hamster_images/hamster_{expression}.webp"
+    )
+    image.setAttribute("all", alt_text)
